@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\TimeSinceEngine\TimeSinceEngine.h" />
+    <ClInclude Include="..\..\Src\TimeSinceEngine\Entry.h" />
+    <ClInclude Include="..\..\Src\TimeSinceEngine\EntryManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\TimeSinceEngine\TimeSinceEngine.cpp" />
+    <ClCompile Include="..\..\Src\TimeSinceEngine\Entry.cpp" />
+    <ClCompile Include="..\..\Src\TimeSinceEngine\EntryManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>

@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\TimeSinceTest\Test_TimeSinceEngine.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TimeSinceEngine\TimeSinceEngine.vcxproj">
       <Project>{b12702ad-abfb-343a-a199-8e24837244a3}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Test_EntryManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FCF6E667-2393-4191-9DB0-9F3F94F9E0B8}</ProjectGuid>
@@ -53,11 +53,13 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>../../Bin/</OutDir>
     <IntDir>../../Obj/$(ProjectName)/$(ConfigurationName)/</IntDir>
+    <IncludePath>../../Src/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>../../Bin/</OutDir>
     <IntDir>../../Obj/$(ProjectName)/$(ConfigurationName)/</IntDir>
+    <IncludePath>../../Src/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

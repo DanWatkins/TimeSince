@@ -13,12 +13,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Src\TimeSinceEngine\TimeSinceEngine.h">
+    <ClInclude Include="..\..\Src\TimeSinceEngine\EntryManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\TimeSinceEngine\Entry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\TimeSinceEngine\TimeSinceEngine.cpp">
+    <ClCompile Include="..\..\Src\TimeSinceEngine\EntryManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\TimeSinceEngine\Entry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
