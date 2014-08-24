@@ -11,4 +11,5 @@ public:
 	Entry getEntry(int id);
 
 	int entryCount();
+	void erase(int id) { mEntries.erase(mEntries.find(id)); }
 };
