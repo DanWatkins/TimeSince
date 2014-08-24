@@ -16,3 +16,9 @@ Entry EntryManager::getEntry(int id)
 {
 	return mEntries.at(id);
 }
+
+
+int EntryManager::entryCount()
+{
+	return mEntries.size();
+}

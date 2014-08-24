@@ -9,13 +9,12 @@ void AssertAreEqual(const std::string &s1, const std::string &s2)
 }
 
 
-
 namespace TimeSinceTest
 {
 	TEST_CLASS(Test_EntryManager)
 	{
 	private:
-		void assertCreateAndVerifyEntry(std::string title)
+		void assertCreateAndGetEntry(std::string title)
 		{
 			EntryManager manager;
 			int id = manager.createEntry(title);
@@ -25,16 +24,16 @@ namespace TimeSinceTest
 		}
 
 	public:
-		TEST_METHOD(CreateAndVerifyEntry)
+		TEST_METHOD(CreateAndGetEntry)
 		{
-			assertCreateAndVerifyEntry("My first entry");
-			assertCreateAndVerifyEntry("My second entry");
-			assertCreateAndVerifyEntry("Entry 4");
-			assertCreateAndVerifyEntry("");
+			assertCreateAndGetEntry("My first entry");
+			assertCreateAndGetEntry("My second entry");
+			assertCreateAndGetEntry("Entry 4");
+			assertCreateAndGetEntry("");
 		}
 
 
-		TEST_METHOD(CreateAndVerifyMultipleEntries)
+		TEST_METHOD(CreateAndGetMultipleEntries)
 		{
 			EntryManager manager;
 			int id1 = manager.createEntry("Entry 1");
@@ -42,6 +41,18 @@ namespace TimeSinceTest
 
 			AssertAreEqual("Entry 1", manager.getEntry(id1).getTitle());
 			AssertAreEqual("Entry 2", manager.getEntry(id2).getTitle());
+		}
+
+
+		TEST_METHOD(CreateAndCountEntry)
+		{
+			EntryManager manager;
+
+			int id1 = manager.createEntry("Entry 1");
+			Assert::AreEqual(1, manager.entryCount(), L"Wrong number of entries");
+
+			int id2 = manager.createEntry("Entry 2");
+			Assert::AreEqual(2, manager.entryCount(), L"Wrong number of entries");
 		}
 	};
 }

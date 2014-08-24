@@ -1,5 +1,4 @@
 #include "Entry.h"
-
 #include <map>
 
 class EntryManager
@@ -10,4 +9,6 @@ private:
 public:
 	int createEntry(std::string title);
 	Entry getEntry(int id);
+
+	int entryCount();
 };

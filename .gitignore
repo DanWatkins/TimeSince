@@ -20,3 +20,5 @@
 *.out
 *.app
 Obj/
+Bin/TimeSinceTest.exp
+Bin/TimeSinceTest.ilk
