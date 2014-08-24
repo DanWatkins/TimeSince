@@ -1,5 +1,6 @@
 #include "CppUnitTest.h"
 #include <TimeSinceEngine\EntryManager.h>
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -23,6 +24,9 @@ namespace TimeSinceTest
 			AssertAreEqual(entry.getTitle(), title);
 		}
 
+		EntryManager entryManager;
+		const std::string title1 = "Hello";
+		const std::string title2 = "Bye";
 
 	public:
 		TEST_METHOD(CreateAndGetEntry)
@@ -36,69 +40,58 @@ namespace TimeSinceTest
 
 		TEST_METHOD(CreateAndGetMultipleEntries)
 		{
-			EntryManager manager;
-			int id1 = manager.createEntry("Entry 1");
-			int id2 = manager.createEntry("Entry 2");
+			int id1 = entryManager.createEntry("Entry 1");
+			int id2 = entryManager.createEntry("Entry 2");
 
-			AssertAreEqual("Entry 1", manager.getEntry(id1).getTitle());
-			AssertAreEqual("Entry 2", manager.getEntry(id2).getTitle());
+			AssertAreEqual("Entry 1", entryManager.getEntry(id1).getTitle());
+			AssertAreEqual("Entry 2", entryManager.getEntry(id2).getTitle());
 		}
 
 
 		TEST_METHOD(CreateAndCountAndEraseEntry)
 		{
-			EntryManager manager;
-			int id1 = manager.createEntry("Entry 1");
-			Assert::AreEqual(1, manager.entryCount(), L"Wrong number of entries");
+			int id1 = entryManager.createEntry("Entry 1");
+			Assert::AreEqual(1, entryManager.entryCount(), L"Wrong number of entries");
 
-			int id2 = manager.createEntry("Entry 2");
-			Assert::AreEqual(2, manager.entryCount(), L"Wrong number of entries");
+			int id2 = entryManager.createEntry("Entry 2");
+			Assert::AreEqual(2, entryManager.entryCount(), L"Wrong number of entries");
 
-			manager.erase(id1);
-			Assert::AreEqual(1, manager.entryCount(), L"Wrong number of entries");
+			entryManager.erase(id1);
+			Assert::AreEqual(1, entryManager.entryCount(), L"Wrong number of entries");
 		}
 
 
 		TEST_METHOD(EraseAndVerifyEntry)
 		{
-			EntryManager manager;
-			const std::string text1 = "Hello";
-			int id1 = manager.createEntry(text1);
+			const std::string title1 = "Hello";
+			int id1 = entryManager.createEntry(title1);
 
-			manager.erase(id1);
+			entryManager.erase(id1);
 
 			Assert::ExpectException<std::out_of_range>([&]
 			{
-				manager.getEntry(id1);
+				entryManager.getEntry(id1);
 			});
 		}
 
 
 		TEST_METHOD(EraseAndVerifyMultipleEntries1)
 		{
-			EntryManager manager;
-			const std::string text1 = "Hello";
-			const std::string text2 = "Bye";
+			int id1 = entryManager.createEntry(title1);
+			int id2 = entryManager.createEntry(title2);
 
-			int id1 = manager.createEntry(text1);
-			int id2 = manager.createEntry(text2);
-
-			manager.erase(id1);
-			AssertAreEqual(text2, manager.getEntry(id2).getTitle());
+			entryManager.erase(id1);
+			AssertAreEqual(title2, entryManager.getEntry(id2).getTitle());
 		}
 
 
 		TEST_METHOD(EraseAndVerifyMultipleEntries2)
 		{
-			EntryManager manager;
-			const std::string text1 = "Hello";
-			const std::string text2 = "Bye";
+			int id1 = entryManager.createEntry(title1);
+			int id2 = entryManager.createEntry(title2);
 
-			int id1 = manager.createEntry(text1);
-			int id2 = manager.createEntry(text2);
-
-			manager.erase(id2);
-			AssertAreEqual(text1, manager.getEntry(id1).getTitle());
+			entryManager.erase(id2);
+			AssertAreEqual(title1, entryManager.getEntry(id1).getTitle());
 		}
 	};
 }
