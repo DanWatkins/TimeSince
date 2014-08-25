@@ -2,5 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Test_EntryManager.cpp" />
+    <ClCompile Include="Test_Entry.cpp" />
   </ItemGroup>
 </Project>

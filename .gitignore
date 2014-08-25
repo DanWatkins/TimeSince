@@ -22,3 +22,5 @@
 Obj/
 Bin/TimeSinceTest.exp
 Bin/TimeSinceTest.ilk
+TimeSince.v12.suo
+*.pdb

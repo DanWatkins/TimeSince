@@ -7,7 +7,7 @@ private:
 	std::map<int, Entry> mEntries;
 
 public:
-	int createEntry(std::string title);
+	int createEntry(String title);
 	Entry getEntry(int id);
 
 	int entryCount();

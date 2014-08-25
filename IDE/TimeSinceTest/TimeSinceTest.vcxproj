@@ -16,6 +16,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Test_Entry.cpp" />
     <ClCompile Include="Test_EntryManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -4,7 +4,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-void AssertAreEqual(const std::string &s1, const std::string &s2)
+void AssertAreEqual(const String &s1, const String &s2)
 {
 	Assert::AreEqual(s1.c_str(), s2.c_str());
 }
@@ -15,7 +15,7 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_EntryManager)
 	{
 	private:
-		void assertCreateAndGetEntry(std::string title)
+		void assertCreateAndGetEntry(String title)
 		{
 			EntryManager manager;
 			int id = manager.createEntry(title);
@@ -25,8 +25,8 @@ namespace TimeSinceTest
 		}
 
 		EntryManager entryManager;
-		const std::string title1 = "Hello";
-		const std::string title2 = "Bye";
+		const String title1 = "Hello";
+		const String title2 = "Bye";
 
 	public:
 		TEST_METHOD(CreateAndGetEntry)
@@ -63,7 +63,7 @@ namespace TimeSinceTest
 
 		TEST_METHOD(EraseAndVerifyEntry)
 		{
-			const std::string title1 = "Hello";
+			const String title1 = "Hello";
 			int id1 = entryManager.createEntry(title1);
 
 			entryManager.erase(id1);

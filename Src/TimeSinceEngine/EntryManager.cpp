@@ -1,7 +1,7 @@
 #include "EntryManager.h"
 
 
-int EntryManager::createEntry(std::string title)
+int EntryManager::createEntry(String title)
 {
 	//put the new entry at a key equal to the highest key + 1
 	int id = mEntries.size()>0 ? mEntries.rbegin()->first+1 : 0;
