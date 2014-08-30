@@ -1,3 +1,6 @@
+#ifndef _TIMESINCE_ENTRYMANAGER_H
+#define _TIMESINCE_ENTRYMANAGER_H
+
 #include "Entry.h"
 #include <map>
 
@@ -13,3 +16,5 @@ public:
 	int entryCount();
 	void erase(int id) { mEntries.erase(mEntries.find(id)); }
 };
+
+#endif

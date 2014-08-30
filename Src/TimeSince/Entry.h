@@ -1,44 +1,32 @@
+#ifndef _TIMESINCE_ENTRY_H
+#define _TIMESINCE_ENTRY_H
+
 #include <string>
 #include <vector>
+#include <QtCore/QDate>
 
 typedef std::string String;
-
-
-enum class CountDirection
-{
-	Since
-};
-
-
-enum class TimeUnit
-{
-	Day
-};
-
 
 class Entry
 {
 private:
 	String mTitle;
-
-	int mDate;
-	CountDirection mCountDirection;
+	QDate mDate;
 	String mEventText;
 	std::vector<String> mTags;
-	TimeUnit mTimeUnit;
 	unsigned mDecimalPlaces;
 
 public:
 	Entry() {}
 	Entry(String title) { mTitle = title; }
-	Entry(int date, CountDirection countDirection, String eventText, std::vector<String> tags, TimeUnit timeUnit, unsigned decimalPlaces);
+	Entry(QDate date, String eventText, std::vector<String> tags, unsigned decimalPlaces);
 
 	String getTitle() { return mTitle; }
 
-	int getDate() { return mDate; }
-	CountDirection getCountDirection() { return mCountDirection; }
+	QDate getDate() { return mDate; }
 	String getEventText() { return mEventText; }
 	std::vector<String> getTags() { return mTags; }
-	TimeUnit getTimeUnit() { return mTimeUnit; }
 	unsigned getDecimalPlaces() { return mDecimalPlaces; }
 };
+
+#endif
