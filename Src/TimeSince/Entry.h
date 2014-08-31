@@ -14,19 +14,17 @@ private:
 	QDate mDate;
 	String mEventText;
 	std::vector<String> mTags;
-	unsigned mDecimalPlaces;
 
 public:
 	Entry() {}
 	Entry(String title) { mTitle = title; }
-	Entry(QDate date, String eventText, std::vector<String> tags, unsigned decimalPlaces);
+	Entry(QDate date, String eventText, std::vector<String> tags);
 
 	String getTitle() { return mTitle; }
 
 	QDate getDate() { return mDate; }
 	String getEventText() { return mEventText; }
 	std::vector<String> getTags() { return mTags; }
-	unsigned getDecimalPlaces() { return mDecimalPlaces; }
 };
 
 #endif
