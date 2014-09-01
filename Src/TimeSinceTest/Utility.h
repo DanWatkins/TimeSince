@@ -6,9 +6,8 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-void AssertAreEqual(const std::string &s1,
-	const std::string &s2,
-	const __LineInfo *lineInfo=nullptr);
+void AssertAreEqual(const std::string &s1, const std::string &s2,
+					const std::string &message="", const __LineInfo *lineInfo=nullptr);
 
 
 /*
@@ -29,7 +28,7 @@ void AssertAreEqual(const Type &expected, const Type &actual, const std::string 
 		if (sameString)
 			Assert::Fail(L"The strings are the same, but the objects are not!", lineInfo);
 		else
-			AssertAreEqual(s1, s2, lineInfo);
+			AssertAreEqual(s1, s2, message, lineInfo);
 	}
 }
 
