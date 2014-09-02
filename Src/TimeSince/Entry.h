@@ -20,8 +20,9 @@ public:
 	Entry(String title) { mTitle = title; }
 	Entry(QDate date, String preText, String postText, std::vector<String> tags);
 
-	String getTitle() { return mTitle; }
+	String buildBaseText(QDate compareDate);
 
+	String getTitle() { return mTitle; }
 	QDate getDate() { return mDate; }
 	String getPreText() { return mPreText; }
 	String getPostText() { return mPostText; }

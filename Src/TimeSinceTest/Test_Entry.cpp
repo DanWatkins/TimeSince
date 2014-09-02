@@ -29,5 +29,24 @@ namespace TimeSinceTest
 											 "I graduated high school",
 											 std::vector<String>());
 		}
+
+
+		void assertThing(QDate mainDate, String preText, String postText, QDate beforeDate, QDate afterDate)
+		{
+			Entry entry(mainDate, preText, postText, std::vector<String>());
+			AssertAreEqual(String("Until ")+preText, entry.buildBaseText(beforeDate));
+			AssertAreEqual(String("Since ")+postText, entry.buildBaseText(afterDate));
+		}
+
+
+
+		TEST_METHOD(EntryDisplayTextRelativeToDateBefore)
+		{
+			assertThing(QDate(2014, 9, 2), "I go to work", "I went to work", QDate(2014, 9, 1),
+						QDate(2014, 9, 3));
+
+			assertThing(QDate(1961, 10, 29), "my Dad is born", "my Dad was born", QDate(1066, 7, 21),
+						QDate(2014, 9, 3));
+		}
 	};
 }
