@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <QtCore/QDate>
+#include <QtCore/QDateTime>
 
 typedef std::string String;
 
