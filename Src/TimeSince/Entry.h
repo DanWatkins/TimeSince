@@ -11,19 +11,19 @@ class Entry
 {
 private:
 	String mTitle;
-	QDate mDate;
+	QDateTime mDate;
 	String mPreText, mPostText;
 	std::vector<String> mTags;
 
 public:
 	Entry() {}
 	Entry(String title) { mTitle = title; }
-	Entry(QDate date, String preText, String postText, std::vector<String> tags);
+	Entry(QDateTime date, String preText, String postText, std::vector<String> tags);
 
-	String buildBaseText(QDate compareDate);
+	String buildBaseText(QDateTime compareDate);
 
 	String getTitle() { return mTitle; }
-	QDate getDate() { return mDate; }
+	QDateTime getDate() { return mDate; }
 	String getPreText() { return mPreText; }
 	String getPostText() { return mPostText; }
 	std::vector<String> getTags() { return mTags; }

@@ -6,7 +6,7 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_Entry)
 	{
 	private:
-		void assertInstantiateAndInspectEntry(QDate date, String preText, String postText,
+		void assertInstantiateAndInspectEntry(QDateTime date, String preText, String postText,
 											  std::vector<String> tags)
 		{
 			Entry entry(date, preText, postText, tags);
@@ -19,7 +19,8 @@ namespace TimeSinceTest
 		}
 
 
-		void assertBaseTextRelativeDates(QDate mainDate, String preText, String postText, QDate beforeDate, QDate afterDate)
+		void assertBaseTextRelativeDates(QDateTime mainDate, String preText, String postText,
+										 QDateTime beforeDate, QDateTime afterDate)
 		{
 			Entry entry(mainDate, preText, postText, std::vector<String>());
 			AssertAreEqual(String("Until ")+preText, entry.buildBaseText(beforeDate));
@@ -31,14 +32,14 @@ namespace TimeSinceTest
 		TEST_METHOD(InstantiateAndInspectEntry)
 		{
 			{
-				QDate mainDate(1995, 1, 3);
+				QDateTime mainDate(QDate(1995, 1, 3), QTime(18, 30));
 				assertInstantiateAndInspectEntry(mainDate, "I will be born", "I was born",
 												 std::vector<String>());
 			}
 			
 
 			{
-				QDate mainDate(2013, 6, 8);
+				QDateTime mainDate(QDate(2013, 6, 8), QTime(17, 23));
 				assertInstantiateAndInspectEntry(mainDate, "I graduate high school",
 												 "I graduated high school",
 												 std::vector<String>());
@@ -49,18 +50,18 @@ namespace TimeSinceTest
 		TEST_METHOD(EntryDisplayTextRelativeToDateBefore)
 		{
 			{
-				QDate mainDate(2014, 9, 2);
-				QDate preDate(2014, 9, 1);
-				QDate postDate(2014, 9, 3);
+				QDateTime mainDate(QDate(2014, 9, 2), QTime(9, 0));
+				QDateTime preDate(QDate(2014, 9, 1), QTime(0, 10));
+				QDateTime postDate(QDate(2014, 9, 3), QTime(16, 33));
 				assertBaseTextRelativeDates(mainDate, "I go to work", "I went to work",
 											preDate, postDate);
 			}
 
 
 			{
-				QDate mainDate(1961, 10, 29);
-				QDate preDate(1066, 7, 21);
-				QDate postDate(2014, 9, 3);
+				QDateTime mainDate(QDate(1961, 10, 29), QTime(7, 20));
+				QDateTime preDate(QDate(1066, 7, 21), QTime(4, 50));
+				QDateTime postDate(QDate(2014, 9, 3), QTime(11, 21));
 				assertBaseTextRelativeDates(mainDate, "my Dad is born", "my Dad was born",
 											preDate, postDate);
 			}
