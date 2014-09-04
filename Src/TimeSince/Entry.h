@@ -17,16 +17,17 @@ private:
 
 public:
 	Entry() {}
-	Entry(String title) { mTitle = title; }
-	Entry(QDateTime date, String preText, String postText, std::vector<String> tags);
+	Entry(const String &title) { mTitle = title; }
+	Entry(const QDateTime &date, const String &preText, const String &postText, const std::vector<String> &tags);
 
-	String buildBaseText(QDateTime compareDate);
+	String buildBaseText(const QDateTime &compareDate) const;
+	String buildTimeText(const QDateTime &compareDate) const;
 
-	String getTitle() { return mTitle; }
-	QDateTime getDate() { return mDate; }
-	String getPreText() { return mPreText; }
-	String getPostText() { return mPostText; }
-	std::vector<String> getTags() { return mTags; }
+	String getTitle() const { return mTitle; }
+	QDateTime getDate() const { return mDate; }
+	String getPreText() const { return mPreText; }
+	String getPostText() const { return mPostText; }
+	std::vector<String> getTags() const { return mTags; }
 };
 
 #endif

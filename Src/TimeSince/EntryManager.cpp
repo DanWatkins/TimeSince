@@ -1,7 +1,7 @@
 #include "EntryManager.h"
 
 
-int EntryManager::createEntry(String title)
+int EntryManager::createEntry(const String &title)
 {
 	//put the new entry at a key equal to the highest key + 1
 	int id = mEntries.size()>0 ? mEntries.rbegin()->first+1 : 0;
@@ -12,13 +12,13 @@ int EntryManager::createEntry(String title)
 
 
 
-Entry EntryManager::getEntry(int id)
+Entry EntryManager::getEntry(int id) const
 {
 	return mEntries.at(id);
 }
 
 
-int EntryManager::entryCount()
+int EntryManager::entryCount() const
 {
 	return mEntries.size();
 }

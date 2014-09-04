@@ -10,10 +10,10 @@ private:
 	std::map<int, Entry> mEntries;
 
 public:
-	int createEntry(String title);
-	Entry getEntry(int id);
+	int createEntry(const String &title);
+	Entry getEntry(int id) const;
 
-	int entryCount();
+	int entryCount() const;
 	void erase(int id) { mEntries.erase(mEntries.find(id)); }
 };
 

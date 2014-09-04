@@ -6,8 +6,8 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_Entry)
 	{
 	private:
-		void assertInstantiateAndInspectEntry(QDateTime date, String preText, String postText,
-											  std::vector<String> tags)
+		void assertInstantiateAndInspectEntry(const QDateTime &date, const String &preText, const String &postText,
+											  const std::vector<String> &tags)
 		{
 			Entry entry(date, preText, postText, tags);
 
@@ -19,8 +19,8 @@ namespace TimeSinceTest
 		}
 
 
-		void assertBaseTextRelativeDates(QDateTime mainDate, String preText, String postText,
-										 QDateTime beforeDate, QDateTime afterDate)
+		void assertBaseTextRelativeDates(const QDateTime &mainDate, const String &preText, const String &postText,
+										 const QDateTime &beforeDate, const QDateTime &afterDate)
 		{
 			Entry entry(mainDate, preText, postText, std::vector<String>());
 			AssertAreEqual(String("Until ")+preText, entry.buildBaseText(beforeDate));
@@ -47,7 +47,7 @@ namespace TimeSinceTest
 		}
 
 
-		TEST_METHOD(EntryDisplayTextRelativeToDateBefore)
+		TEST_METHOD(EntryBaseTextRelativeToDateBeforeAfter)
 		{
 			{
 				QDateTime mainDate(QDate(2014, 9, 2), QTime(9, 0));
