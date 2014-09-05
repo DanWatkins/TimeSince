@@ -6,8 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TimeSince", "IDE\TimeSince\TimeSince.vcxproj", "{B08F2628-10A7-4858-9ED8-776DEFD80190}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TimeSinceDesktop", "IDE\TimeSinceDesktop\TimeSinceDesktop.vcxproj", "{92816522-8CD2-45F1-A30F-E46C0CAE679F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B08F2628-10A7-4858-9ED8-776DEFD80190} = {B08F2628-10A7-4858-9ED8-776DEFD80190}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TimeSinceTest", "IDE\TimeSinceTest\TimeSinceTest.vcxproj", "{F733AE74-ED06-4AA4-902D-B55038B1C8A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B08F2628-10A7-4858-9ED8-776DEFD80190} = {B08F2628-10A7-4858-9ED8-776DEFD80190}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

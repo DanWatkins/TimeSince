@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\TimeSinceTest\Test_Entry.cpp" />
     <ClCompile Include="..\..\Src\TimeSinceTest\Test_EntryManager.cpp" />
+    <ClCompile Include="..\..\Src\TimeSinceTest\Test_TimeUnit.cpp" />
     <ClCompile Include="..\..\Src\TimeSinceTest\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>

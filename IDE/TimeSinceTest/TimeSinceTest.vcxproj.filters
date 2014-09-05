@@ -13,6 +13,9 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\TimeSinceTest\Utility.cpp" />
+    <ClCompile Include="..\..\Src\TimeSinceTest\Test_TimeUnit.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Src\TimeSinceTest\Utility.h" />
