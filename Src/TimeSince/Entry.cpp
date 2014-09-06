@@ -21,22 +21,37 @@ String Entry::buildBaseText(const QDateTime &compareDate) const
 
 QString Entry::buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) const
 {
+	int value = 0;
+	QString unit = " ";
+	unit.reserve(10);
 
 	switch (timeUnit)
 	{
 	case TimeUnit::Day:
-		return QString("%1 days").arg(abs(mDate.daysTo(compareDate)));
+		value = mDate.daysTo(compareDate);
+		unit += "day";
+		break;
 
 	case TimeUnit::Hour:
-		return QString("%1 hours").arg(abs(mDate.secsTo(compareDate) / 3600));
+		value = mDate.secsTo(compareDate) / 3600;
+		unit += "hour";
+		break;
 
 	case TimeUnit::Minute:
-		return QString("%1 minutes").arg(abs(mDate.secsTo(compareDate) / 60));
+		value = mDate.secsTo(compareDate) / 60;
+		unit += "minute";
+		break;
 
 	case TimeUnit::Second:
-		return QString("%1 seconds").arg(abs(mDate.secsTo(compareDate)));
-
-	default:
+		value = mDate.secsTo(compareDate);
+		unit += "second";
 		break;
 	}
+
+	value = abs(value);
+
+	if (value == 1)
+		return QString::number(value) + unit;
+
+	return QString::number(value) + unit + "s";
 }

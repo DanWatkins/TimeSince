@@ -81,21 +81,41 @@ namespace TimeSinceTest
 		}
 
 
-		TEST_METHOD(EntryTimeTextRelativeToDateBefore)
+		TEST_METHOD(EntryBuildTimeText)
 		{
-			assertBuildTimeText(QDateTime(QDate(1995, 1, 3), QTime(18, 30)),
-			  QDateTime(QDate(2035, 1, 3), QTime(21, 55)),
-			  "14610 days", "350643 hours", "21038605 minutes", "1262316300 seconds");
+			//plural only
+			{
+				assertBuildTimeText(QDateTime(QDate(1995, 1, 3), QTime(18, 30)),
+									QDateTime(QDate(2035, 1, 3), QTime(21, 55)),
+									"14610 days", "350643 hours", "21038605 minutes",
+									"1262316300 seconds");
 
 
-			assertBuildTimeText(QDateTime(QDate(2014, 9, 2), QTime(22, 35)),
-			  QDateTime(QDate(2014, 9, 2), QTime(21, 55)),
-			  "0 days", "0 hours", "40 minutes", "2400 seconds");
+				assertBuildTimeText(QDateTime(QDate(2014, 9, 2), QTime(22, 35)),
+									QDateTime(QDate(2014, 9, 2), QTime(21, 55)),
+									"0 days", "0 hours", "40 minutes", "2400 seconds");
+			}
+
+			//singular occurence
+			{
+				assertBuildTimeText(QDateTime(QDate(2014, 9, 1), QTime(10, 0)),
+									QDateTime(QDate(2014, 9, 2), QTime(10, 0)),
+									"1 day", "24 hours", "1440 minutes", "86400 seconds");
 
 
-			assertBuildTimeText(QDateTime(QDate(2014, 9, 2), QTime(22, 35)),
-			  QDateTime(QDate(2014, 9, 2), QTime(21, 20)),
-			  "0 days", "1 hours", "75 minutes", "4500 seconds");
+				assertBuildTimeText(QDateTime(QDate(2014, 9, 2), QTime(22, 35)),
+									QDateTime(QDate(2014, 9, 2), QTime(21, 20)),
+									"0 days", "1 hour", "75 minutes", "4500 seconds");
+
+				assertBuildTimeText(QDateTime(QDate(2005, 5, 15), QTime(18, 0)),
+									QDateTime(QDate(2005, 5, 15), QTime(18, 1)),
+									"0 days", "0 hours", "1 minute", "60 seconds");
+
+				assertBuildTimeText(QDateTime(QDate(1989, 1, 7), QTime(9, 53, 0)),
+									QDateTime(QDate(1989, 1, 7), QTime(9, 53, 1)),
+									"0 days", "0 hours", "0 minutes", "1 second");
+
+			}
 		}
 	};
 }
