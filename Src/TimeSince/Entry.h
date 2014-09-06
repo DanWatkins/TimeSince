@@ -31,7 +31,7 @@ public:
 	Entry(const QDateTime &date, const String &preText, const String &postText, const std::vector<String> &tags);
 
 	String buildBaseText(const QDateTime &compareDate) const;
-	String buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) const;
+	QString buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) const;
 
 	String getTitle() const { return mTitle; }
 	QDateTime getDate() const { return mDate; }

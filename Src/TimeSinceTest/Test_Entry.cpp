@@ -28,6 +28,19 @@ namespace TimeSinceTest
 		}
 
 
+		void assertBuildTimeText(const QDateTime &mainDate, const QDateTime &compareDate,
+			   const QString &stringDay, const QString &stringHour,
+			   const QString &stringMinute, const QString &stringSecond)
+		{
+			const Entry entry(mainDate, "irrelevant", "irrelevant", std::vector<String>());
+
+			AssertAreEqual(stringDay, entry.buildTimeText(compareDate, TimeUnit::Day));
+			AssertAreEqual(stringHour, entry.buildTimeText(compareDate, TimeUnit::Hour));
+			AssertAreEqual(stringMinute, entry.buildTimeText(compareDate, TimeUnit::Minute));				
+			AssertAreEqual(stringSecond, entry.buildTimeText(compareDate, TimeUnit::Second));
+		}
+
+
 	public:
 		TEST_METHOD(InstantiateAndInspectEntry)
 		{
@@ -70,40 +83,19 @@ namespace TimeSinceTest
 
 		TEST_METHOD(EntryTimeTextRelativeToDateBefore)
 		{
-			{
-				QDateTime mainDate(QDate(1995, 1, 3), QTime(18, 30));
-				QDateTime preDate(QDate(2035, 1, 3), QTime(21, 55));
-				const Entry entry(mainDate, "irrelevant", "irrelevant", std::vector<String>());
-
-				AssertAreEqual("14610 days", entry.buildTimeText(preDate, TimeUnit::Day));
-				AssertAreEqual("350643 hours", entry.buildTimeText(preDate, TimeUnit::Hour));
-				AssertAreEqual("21038605 minutes", entry.buildTimeText(preDate, TimeUnit::Minute));				
-				AssertAreEqual("1262316300 seconds", entry.buildTimeText(preDate, TimeUnit::Second));
-			}
+			assertBuildTimeText(QDateTime(QDate(1995, 1, 3), QTime(18, 30)),
+			  QDateTime(QDate(2035, 1, 3), QTime(21, 55)),
+			  "14610 days", "350643 hours", "21038605 minutes", "1262316300 seconds");
 
 
-			{
-				QDateTime mainDate(QDate(2014, 9, 2), QTime(22, 35));
-				QDateTime preDate(QDate(2014, 9, 2), QTime(21, 55));
-				const Entry entry(mainDate, "irrelevant", "irrelevant", std::vector<String>());
-
-				AssertAreEqual("0 days", entry.buildTimeText(preDate, TimeUnit::Day));
-				AssertAreEqual("0 hours", entry.buildTimeText(preDate, TimeUnit::Hour));
-				AssertAreEqual("40 minutes", entry.buildTimeText(preDate, TimeUnit::Minute));				
-				AssertAreEqual("2400 seconds", entry.buildTimeText(preDate, TimeUnit::Second));
-			}
+			assertBuildTimeText(QDateTime(QDate(2014, 9, 2), QTime(22, 35)),
+			  QDateTime(QDate(2014, 9, 2), QTime(21, 55)),
+			  "0 days", "0 hours", "40 minutes", "2400 seconds");
 
 
-			{
-				QDateTime mainDate(QDate(2014, 9, 2), QTime(22, 35));
-				QDateTime preDate(QDate(2014, 9, 2), QTime(21, 20));
-				const Entry entry(mainDate, "irrelevant", "irrelevant", std::vector<String>());
-
-				AssertAreEqual("0 days", entry.buildTimeText(preDate, TimeUnit::Day));
-				AssertAreEqual("1 hours", entry.buildTimeText(preDate, TimeUnit::Hour));
-				AssertAreEqual("75 minutes", entry.buildTimeText(preDate, TimeUnit::Minute));				
-				AssertAreEqual("4500 seconds", entry.buildTimeText(preDate, TimeUnit::Second));
-			}
+			assertBuildTimeText(QDateTime(QDate(2014, 9, 2), QTime(22, 35)),
+			  QDateTime(QDate(2014, 9, 2), QTime(21, 20)),
+			  "0 days", "1 hours", "75 minutes", "4500 seconds");
 		}
 	};
 }

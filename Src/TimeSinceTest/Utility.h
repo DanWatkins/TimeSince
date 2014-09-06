@@ -2,12 +2,18 @@
 #define _TIMESINCETEST_UTILITY_H
 
 #include <string>
+#include <QtCore/QString>
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 void AssertAreEqual(const std::string &s1, const std::string &s2,
 					const std::string &message="", const __LineInfo *lineInfo=nullptr);
+
+void AssertAreEqual(const QString &expected, const QString &actual, const QString &message="",
+					const __LineInfo *lineInfo=nullptr);
+
+
 
 
 /*
