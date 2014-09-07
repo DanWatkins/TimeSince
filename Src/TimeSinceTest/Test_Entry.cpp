@@ -117,5 +117,40 @@ namespace TimeSinceTest
 
 			}
 		}
+
+
+		void assertBuildDisplayText(const QDateTime &mainDate, const QDateTime &compareDate,
+									const QString &preText, const QString &postText,
+									const QString &stringDay, const QString &stringHour,
+									const QString &stringMinute, const QString &stringSecond)
+		{
+			Entry entry(mainDate, preText, postText,
+						QVector<QString>());
+
+			AssertAreEqual(stringDay, entry.buildDisplayText(compareDate, TimeUnit::Day));
+			AssertAreEqual(stringHour, entry.buildDisplayText(compareDate, TimeUnit::Hour));
+			AssertAreEqual(stringMinute, entry.buildDisplayText(compareDate, TimeUnit::Minute));
+			AssertAreEqual(stringSecond, entry.buildDisplayText(compareDate, TimeUnit::Second));
+		}
+
+
+		TEST_METHOD(EntryBuildDisplayText)
+		{
+			assertBuildDisplayText(QDateTime(QDate(2012, 1, 3), QTime(13, 20)),
+									QDateTime(QDate(1985, 7, 2), QTime(15, 0)),
+									"I buy Battlefield 3", "I bought Battlefield 3",
+									"9681 days Until I buy Battlefield 3",
+									"232343 hours Until I buy Battlefield 3",
+									"13940600 minutes Until I buy Battlefield 3",
+									"836436000 seconds Until I buy Battlefield 3");
+
+			assertBuildDisplayText(QDateTime(QDate(2012, 1, 3), QTime(13, 20)),
+									QDateTime(QDate(2014, 9, 6), QTime(15, 0)),
+									"I buy Battlefield 3", "I bought Battlefield 3",
+									"977 days Since I bought Battlefield 3",
+									"23448 hours Since I bought Battlefield 3",
+									"1406920 minutes Since I bought Battlefield 3",
+									"84415200 seconds Since I bought Battlefield 3");
+		}
 	};
 }

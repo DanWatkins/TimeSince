@@ -24,10 +24,12 @@ private:
 public:
 	Entry() {}
 	Entry(const QString &title) { mTitle = title; }
-	Entry(const QDateTime &date, const QString &preText, const QString &postText, const QVector<QString> &tags);
+	Entry(const QDateTime &date, const QString &preText, const QString &postText,
+		  const QVector<QString> &tags);
 
 	QString buildBaseText(const QDateTime &compareDate) const;
 	QString buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) const;
+	QString buildDisplayText(const QDateTime &compareDate, TimeUnit timeUnit) const;
 
 	QString getTitle() const { return mTitle; }
 	QDateTime getDate() const { return mDate; }

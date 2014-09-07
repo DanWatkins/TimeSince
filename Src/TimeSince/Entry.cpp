@@ -55,3 +55,9 @@ QString Entry::buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) co
 
 	return QString::number(value) + unit + "s";
 }
+
+
+QString Entry::buildDisplayText(const QDateTime &compareDate, TimeUnit timeUnit) const
+{
+	return buildTimeText(compareDate, timeUnit) + " " + buildBaseText(compareDate);
+}
