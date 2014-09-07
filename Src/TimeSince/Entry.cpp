@@ -1,21 +1,20 @@
 #include "Entry.h"
 
 
-Entry::Entry(const QDateTime &date, const QString &preText, const QString &postText, const QVector<QString> &tags)
+Entry::Entry(const QDateTime &date, const QString &preText, const QString &postText)
 {
 	mDate = date;
 	mPreText = preText;
 	mPostText = postText;
-	mTags = tags;
 }
 
 
 QString Entry::buildBaseText(const QDateTime &compareDate) const
 {
 	if (compareDate < mDate)
-		return QString("Until ") + mPreText;
+		return QString("until ") + mPreText;
 	else if (compareDate >= mDate)
-		return QString("Since ") + mPostText;
+		return QString("since ") + mPostText;
 }
 
 
@@ -48,6 +47,8 @@ QString Entry::buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) co
 		break;
 	}
 
+	//value will be negative if compareDate is before mDate
+	//we are only concerned about the unsigned difference
 	value = abs(value);
 
 	if (value == 1)
@@ -57,7 +58,7 @@ QString Entry::buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) co
 }
 
 
-QString Entry::buildDisplayText(const QDateTime &compareDate, TimeUnit timeUnit) const
+QString Entry::buildFullText(const QDateTime &compareDate, TimeUnit timeUnit) const
 {
 	return buildTimeText(compareDate, timeUnit) + " " + buildBaseText(compareDate);
 }

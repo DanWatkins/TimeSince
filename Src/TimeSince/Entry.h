@@ -19,23 +19,20 @@ private:
 	QString mTitle;
 	QDateTime mDate;
 	QString mPreText, mPostText;
-	QVector<QString> mTags;
 
 public:
 	Entry() {}
 	Entry(const QString &title) { mTitle = title; }
-	Entry(const QDateTime &date, const QString &preText, const QString &postText,
-		  const QVector<QString> &tags);
+	Entry(const QDateTime &date, const QString &preText, const QString &postText);
 
 	QString buildBaseText(const QDateTime &compareDate) const;
 	QString buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) const;
-	QString buildDisplayText(const QDateTime &compareDate, TimeUnit timeUnit) const;
+	QString buildFullText(const QDateTime &compareDate, TimeUnit timeUnit) const;
 
 	QString getTitle() const { return mTitle; }
 	QDateTime getDate() const { return mDate; }
 	QString getPreText() const { return mPreText; }
 	QString getPostText() const { return mPostText; }
-	QVector<QString> getTags() const { return mTags; }
 };
 
 #endif

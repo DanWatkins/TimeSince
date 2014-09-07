@@ -6,15 +6,13 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_Entry)
 	{
 	private:
-		void assertInstantiateAndInspectEntry(const QDateTime &date, const QString &preText, const QString &postText,
-											  const QVector<QString> &tags)
+		void assertInstantiateAndInspectEntry(const QDateTime &date, const QString &preText, const QString &postText)
 		{
-			Entry entry(date, preText, postText, tags);
+			Entry entry(date, preText, postText);
 
 			AssertAreEqual(date, entry.getDate());
 			AssertAreEqual(preText, entry.getPreText());
 			AssertAreEqual(postText, entry.getPostText());
-			//Assert::AreEqual(tags, eventText.getTags());
 			AssertAreEqual(date, entry.getDate());
 		}
 
@@ -22,9 +20,9 @@ namespace TimeSinceTest
 		void assertBaseTextRelativeDates(const QDateTime &mainDate, const QString &preText, const QString &postText,
 										 const QDateTime &beforeDate, const QDateTime &afterDate)
 		{
-			Entry entry(mainDate, preText, postText, QVector<QString>());
-			AssertAreEqual(QString("Until ")+preText, entry.buildBaseText(beforeDate));
-			AssertAreEqual(QString("Since ")+postText, entry.buildBaseText(afterDate));
+			Entry entry(mainDate, preText, postText);
+			AssertAreEqual(QString("until ")+preText, entry.buildBaseText(beforeDate));
+			AssertAreEqual(QString("since ")+postText, entry.buildBaseText(afterDate));
 		}
 
 
@@ -32,7 +30,7 @@ namespace TimeSinceTest
 			   const QString &stringDay, const QString &stringHour,
 			   const QString &stringMinute, const QString &stringSecond)
 		{
-			const Entry entry(mainDate, "irrelevant", "irrelevant", QVector<QString>());
+			const Entry entry(mainDate, "irrelevant", "irrelevant");
 
 			AssertAreEqual(stringDay, entry.buildTimeText(compareDate, TimeUnit::Day));
 			AssertAreEqual(stringHour, entry.buildTimeText(compareDate, TimeUnit::Hour));
@@ -46,16 +44,14 @@ namespace TimeSinceTest
 		{
 			{
 				QDateTime mainDate(QDate(1995, 1, 3), QTime(18, 30));
-				assertInstantiateAndInspectEntry(mainDate, "I will be born", "I was born",
-													QVector<QString>());
+				assertInstantiateAndInspectEntry(mainDate, "I will be born", "I was born");
 			}
 			
 
 			{
 				QDateTime mainDate(QDate(2013, 6, 8), QTime(17, 23));
 				assertInstantiateAndInspectEntry(mainDate, "I graduate high school",
-												 "I graduated high school",
-												 QVector<QString>());
+												 "I graduated high school");
 			}
 		}
 
@@ -124,33 +120,32 @@ namespace TimeSinceTest
 									const QString &stringDay, const QString &stringHour,
 									const QString &stringMinute, const QString &stringSecond)
 		{
-			Entry entry(mainDate, preText, postText,
-						QVector<QString>());
+			Entry entry(mainDate, preText, postText);
 
-			AssertAreEqual(stringDay, entry.buildDisplayText(compareDate, TimeUnit::Day));
-			AssertAreEqual(stringHour, entry.buildDisplayText(compareDate, TimeUnit::Hour));
-			AssertAreEqual(stringMinute, entry.buildDisplayText(compareDate, TimeUnit::Minute));
-			AssertAreEqual(stringSecond, entry.buildDisplayText(compareDate, TimeUnit::Second));
+			AssertAreEqual(stringDay, entry.buildFullText(compareDate, TimeUnit::Day));
+			AssertAreEqual(stringHour, entry.buildFullText(compareDate, TimeUnit::Hour));
+			AssertAreEqual(stringMinute, entry.buildFullText(compareDate, TimeUnit::Minute));
+			AssertAreEqual(stringSecond, entry.buildFullText(compareDate, TimeUnit::Second));
 		}
 
 
-		TEST_METHOD(EntryBuildDisplayText)
+		TEST_METHOD(EntryBuildFullText)
 		{
 			assertBuildDisplayText(QDateTime(QDate(2012, 1, 3), QTime(13, 20)),
 									QDateTime(QDate(1985, 7, 2), QTime(15, 0)),
 									"I buy Battlefield 3", "I bought Battlefield 3",
-									"9681 days Until I buy Battlefield 3",
-									"232343 hours Until I buy Battlefield 3",
-									"13940600 minutes Until I buy Battlefield 3",
-									"836436000 seconds Until I buy Battlefield 3");
+									"9681 days until I buy Battlefield 3",
+									"232343 hours until I buy Battlefield 3",
+									"13940600 minutes until I buy Battlefield 3",
+									"836436000 seconds until I buy Battlefield 3");
 
 			assertBuildDisplayText(QDateTime(QDate(2012, 1, 3), QTime(13, 20)),
 									QDateTime(QDate(2014, 9, 6), QTime(15, 0)),
 									"I buy Battlefield 3", "I bought Battlefield 3",
-									"977 days Since I bought Battlefield 3",
-									"23448 hours Since I bought Battlefield 3",
-									"1406920 minutes Since I bought Battlefield 3",
-									"84415200 seconds Since I bought Battlefield 3");
+									"977 days since I bought Battlefield 3",
+									"23448 hours since I bought Battlefield 3",
+									"1406920 minutes since I bought Battlefield 3",
+									"84415200 seconds since I bought Battlefield 3");
 		}
 	};
 }
