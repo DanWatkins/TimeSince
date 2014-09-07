@@ -6,8 +6,8 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_Entry)
 	{
 	private:
-		void assertInstantiateAndInspectEntry(const QDateTime &date, const String &preText, const String &postText,
-											  const std::vector<String> &tags)
+		void assertInstantiateAndInspectEntry(const QDateTime &date, const QString &preText, const QString &postText,
+											  const QVector<QString> &tags)
 		{
 			Entry entry(date, preText, postText, tags);
 
@@ -19,12 +19,12 @@ namespace TimeSinceTest
 		}
 
 
-		void assertBaseTextRelativeDates(const QDateTime &mainDate, const String &preText, const String &postText,
+		void assertBaseTextRelativeDates(const QDateTime &mainDate, const QString &preText, const QString &postText,
 										 const QDateTime &beforeDate, const QDateTime &afterDate)
 		{
-			Entry entry(mainDate, preText, postText, std::vector<String>());
-			AssertAreEqual(String("Until ")+preText, entry.buildBaseText(beforeDate));
-			AssertAreEqual(String("Since ")+postText, entry.buildBaseText(afterDate));
+			Entry entry(mainDate, preText, postText, QVector<QString>());
+			AssertAreEqual(QString("Until ")+preText, entry.buildBaseText(beforeDate));
+			AssertAreEqual(QString("Since ")+postText, entry.buildBaseText(afterDate));
 		}
 
 
@@ -32,7 +32,7 @@ namespace TimeSinceTest
 			   const QString &stringDay, const QString &stringHour,
 			   const QString &stringMinute, const QString &stringSecond)
 		{
-			const Entry entry(mainDate, "irrelevant", "irrelevant", std::vector<String>());
+			const Entry entry(mainDate, "irrelevant", "irrelevant", QVector<QString>());
 
 			AssertAreEqual(stringDay, entry.buildTimeText(compareDate, TimeUnit::Day));
 			AssertAreEqual(stringHour, entry.buildTimeText(compareDate, TimeUnit::Hour));
@@ -47,7 +47,7 @@ namespace TimeSinceTest
 			{
 				QDateTime mainDate(QDate(1995, 1, 3), QTime(18, 30));
 				assertInstantiateAndInspectEntry(mainDate, "I will be born", "I was born",
-												 std::vector<String>());
+													QVector<QString>());
 			}
 			
 
@@ -55,7 +55,7 @@ namespace TimeSinceTest
 				QDateTime mainDate(QDate(2013, 6, 8), QTime(17, 23));
 				assertInstantiateAndInspectEntry(mainDate, "I graduate high school",
 												 "I graduated high school",
-												 std::vector<String>());
+												 QVector<QString>());
 			}
 		}
 

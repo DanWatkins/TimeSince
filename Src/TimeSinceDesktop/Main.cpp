@@ -1,10 +1,10 @@
-#include <QtCore/QDate>
 #include <iostream>
+#include <TimeSince/EntryManager.h>
 
 int main()
 {
-	QDate date(1995, 1, 3);
-	std::cout << date.toString().toStdString() << std::endl;
+	EntryManager m;
+	m.getEntry(12);
 
 	return 0;
 }

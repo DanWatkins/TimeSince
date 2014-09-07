@@ -9,7 +9,7 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_EntryManager)
 	{
 	private:
-		void assertCreateAndGetEntry(String title)
+		void assertCreateAndGetEntry(QString title)
 		{
 			EntryManager manager;
 			int id = manager.createEntry(title);
@@ -19,8 +19,8 @@ namespace TimeSinceTest
 		}
 
 		EntryManager entryManager;
-		const String title1 = "Hello";
-		const String title2 = "Bye";
+		const QString title1 = "Hello";
+		const QString title2 = "Bye";
 
 	public:
 		TEST_METHOD(CreateAndGetEntry)
@@ -57,12 +57,12 @@ namespace TimeSinceTest
 
 		TEST_METHOD(EraseAndVerifyEntry)
 		{
-			const String title1 = "Hello";
+			const QString title1 = "Hello";
 			int id1 = entryManager.createEntry(title1);
 
 			entryManager.erase(id1);
 
-			Assert::ExpectException<std::out_of_range>([&]
+			Assert::ExpectException<std::exception>([&]
 			{
 				entryManager.getEntry(id1);
 			});

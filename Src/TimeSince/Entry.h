@@ -1,12 +1,8 @@
 #ifndef _TIMESINCE_ENTRY_H
 #define _TIMESINCE_ENTRY_H
 
-#include <string>
-#include <vector>
 #include <QtCore/QDateTime>
-
-typedef std::string String;
-
+#include <QtCore/QVector>
 
 enum class TimeUnit
 {
@@ -20,24 +16,24 @@ enum class TimeUnit
 class Entry
 {
 private:
-	String mTitle;
+	QString mTitle;
 	QDateTime mDate;
-	String mPreText, mPostText;
-	std::vector<String> mTags;
+	QString mPreText, mPostText;
+	QVector<QString> mTags;
 
 public:
 	Entry() {}
-	Entry(const String &title) { mTitle = title; }
-	Entry(const QDateTime &date, const String &preText, const String &postText, const std::vector<String> &tags);
+	Entry(const QString &title) { mTitle = title; }
+	Entry(const QDateTime &date, const QString &preText, const QString &postText, const QVector<QString> &tags);
 
-	String buildBaseText(const QDateTime &compareDate) const;
+	QString buildBaseText(const QDateTime &compareDate) const;
 	QString buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) const;
 
-	String getTitle() const { return mTitle; }
+	QString getTitle() const { return mTitle; }
 	QDateTime getDate() const { return mDate; }
-	String getPreText() const { return mPreText; }
-	String getPostText() const { return mPostText; }
-	std::vector<String> getTags() const { return mTags; }
+	QString getPreText() const { return mPreText; }
+	QString getPostText() const { return mPostText; }
+	QVector<QString> getTags() const { return mTags; }
 };
 
 #endif

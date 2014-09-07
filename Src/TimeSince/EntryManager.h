@@ -2,15 +2,15 @@
 #define _TIMESINCE_ENTRYMANAGER_H
 
 #include "Entry.h"
-#include <map>
+#include <QtCore/QMap>
 
 class EntryManager
 {
 private:
-	std::map<int, Entry> mEntries;
+	QMap<int, Entry> mEntries;
 
 public:
-	int createEntry(const String &title);
+	int createEntry(const QString &title);
 	Entry getEntry(int id) const;
 
 	int entryCount() const;

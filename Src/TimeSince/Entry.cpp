@@ -1,7 +1,7 @@
 #include "Entry.h"
 
 
-Entry::Entry(const QDateTime &date, const String &preText, const String &postText, const std::vector<String> &tags)
+Entry::Entry(const QDateTime &date, const QString &preText, const QString &postText, const QVector<QString> &tags)
 {
 	mDate = date;
 	mPreText = preText;
@@ -10,12 +10,12 @@ Entry::Entry(const QDateTime &date, const String &preText, const String &postTex
 }
 
 
-String Entry::buildBaseText(const QDateTime &compareDate) const
+QString Entry::buildBaseText(const QDateTime &compareDate) const
 {
 	if (compareDate < mDate)
-		return String("Until ") + mPreText;
+		return QString("Until ") + mPreText;
 	else if (compareDate >= mDate)
-		return String("Since ") + mPostText;
+		return QString("Since ") + mPostText;
 }
 
 

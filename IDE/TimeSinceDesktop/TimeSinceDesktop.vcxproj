@@ -88,6 +88,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\TimeSinceDesktop\Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TimeSince\TimeSince.vcxproj">
+      <Project>{b08f2628-10a7-4858-9ed8-776defd80190}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
