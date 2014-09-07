@@ -17,8 +17,9 @@ namespace TimeSinceTest
 		}
 
 
-		void assertBaseTextRelativeDates(const QDateTime &mainDate, const QString &preText, const QString &postText,
-										 const QDateTime &beforeDate, const QDateTime &afterDate)
+		void assertBaseTextRelativeDates(const QDateTime &mainDate, const QString &preText,
+										 const QString &postText, const QDateTime &beforeDate,
+										 const QDateTime &afterDate)
 		{
 			Entry entry(mainDate, preText, postText);
 			AssertAreEqual(QString("until ")+preText, entry.buildBaseText(beforeDate));
@@ -27,8 +28,8 @@ namespace TimeSinceTest
 
 
 		void assertBuildTimeText(const QDateTime &mainDate, const QDateTime &compareDate,
-			   const QString &stringDay, const QString &stringHour,
-			   const QString &stringMinute, const QString &stringSecond)
+								 const QString &stringDay, const QString &stringHour,
+								 const QString &stringMinute, const QString &stringSecond)
 		{
 			const Entry entry(mainDate, "irrelevant", "irrelevant");
 
@@ -37,6 +38,21 @@ namespace TimeSinceTest
 			AssertAreEqual(stringMinute, entry.buildTimeText(compareDate, TimeUnit::Minute));				
 			AssertAreEqual(stringSecond, entry.buildTimeText(compareDate, TimeUnit::Second));
 		}
+
+
+		void assertBuildDisplayText(const QDateTime &mainDate, const QDateTime &compareDate,
+									const QString &preText, const QString &postText,
+									const QString &stringDay, const QString &stringHour,
+									const QString &stringMinute, const QString &stringSecond)
+		{
+			Entry entry(mainDate, preText, postText);
+
+			AssertAreEqual(stringDay, entry.buildFullText(compareDate, TimeUnit::Day));
+			AssertAreEqual(stringHour, entry.buildFullText(compareDate, TimeUnit::Hour));
+			AssertAreEqual(stringMinute, entry.buildFullText(compareDate, TimeUnit::Minute));
+			AssertAreEqual(stringSecond, entry.buildFullText(compareDate, TimeUnit::Second));
+		}
+
 
 
 	public:
@@ -115,20 +131,6 @@ namespace TimeSinceTest
 		}
 
 
-		void assertBuildDisplayText(const QDateTime &mainDate, const QDateTime &compareDate,
-									const QString &preText, const QString &postText,
-									const QString &stringDay, const QString &stringHour,
-									const QString &stringMinute, const QString &stringSecond)
-		{
-			Entry entry(mainDate, preText, postText);
-
-			AssertAreEqual(stringDay, entry.buildFullText(compareDate, TimeUnit::Day));
-			AssertAreEqual(stringHour, entry.buildFullText(compareDate, TimeUnit::Hour));
-			AssertAreEqual(stringMinute, entry.buildFullText(compareDate, TimeUnit::Minute));
-			AssertAreEqual(stringSecond, entry.buildFullText(compareDate, TimeUnit::Second));
-		}
-
-
 		TEST_METHOD(EntryBuildFullText)
 		{
 			assertBuildDisplayText(QDateTime(QDate(2012, 1, 3), QTime(13, 20)),
@@ -146,6 +148,29 @@ namespace TimeSinceTest
 									"23448 hours since I bought Battlefield 3",
 									"1406920 minutes since I bought Battlefield 3",
 									"84415200 seconds since I bought Battlefield 3");
+		}
+
+
+		TEST_METHOD(EntryAddAndFilterByTag)
+		{
+			{
+				Entry entry;
+				entry.addTag("car");
+				Assert::IsTrue(entry.hasTag("car"), L"The entry does not have tag \"car\"");
+			}
+
+			{
+				Entry entry;
+				entry.addTag("adventure");
+				Assert::IsFalse(entry.hasTag("friends"), L"The entry has tag \"adventure\" when it shouldn't");
+			}
+
+			{
+				Entry entry;
+				entry.addTag("friends");
+
+				Assert::IsTrue(entry.hasTag("friends"), L"The entry does not have tag \"adventure\"");
+			}
 		}
 	};
 }
