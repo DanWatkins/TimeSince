@@ -172,5 +172,47 @@ namespace TimeSinceTest
 				Assert::IsTrue(entry.hasTag("friends"), L"The entry does not have tag \"adventure\"");
 			}
 		}
+
+
+		TEST_METHOD(EntryAddAndFilterByTagsWhichExist)
+		{
+			Entry entry;
+			entry.addTag("car");
+			entry.addTag("programming");
+
+			Assert::IsTrue(entry.hasTags("car", "programming"));
+		}
+
+
+		TEST_METHOD(EntryAddAndFilterByTagsWhichDontExist)
+		{
+			Entry entry;
+			entry.addTag("dog");
+			entry.addTag("cat");
+
+			Assert::IsFalse(entry.hasTags("dog", "cat", "frog"));
+		}
+
+
+		TEST_METHOD(EntryAddAndFilterByTagsWhichAreBlank)
+		{
+			Entry entry;
+			entry.addTag("");
+			entry.addTag("lizzard");
+
+			Assert::IsTrue(entry.hasTags("", "lizzard"));
+		}
+
+
+		TEST_METHOD(EntryAddAndFilterByTagsScrambledOrder)
+		{
+			Entry entry;
+			entry.addTag("cow");
+			entry.addTag("goat");
+			entry.addTag("visualStudio");
+			entry.addTag("screen");
+
+			Assert::IsTrue(entry.hasTags("visualStudio", "cow", "screen", "goat"));
+		}
 	};
 }
