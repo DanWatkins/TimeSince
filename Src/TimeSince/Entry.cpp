@@ -62,3 +62,12 @@ QString Entry::buildFullText(const QDateTime &compareDate, TimeUnit timeUnit) co
 {
 	return buildTimeText(compareDate, timeUnit) + " " + buildBaseText(compareDate);
 }
+
+
+//TODO are thre enough tests for this method?
+bool Entry::operator == (const Entry &rhs) const
+{
+	return mDate == rhs.mDate &&
+			mPreText == rhs.mPreText &&
+			mPostText == rhs.mPostText;
+}
