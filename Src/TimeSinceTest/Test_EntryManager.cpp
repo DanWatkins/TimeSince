@@ -12,7 +12,7 @@ namespace TimeSinceTest
 		void assertCreateAndGetEntry(QString title)
 		{
 			EntryManager manager;
-			int id = manager.createEntry(title);
+			int id = manager.addEntry(Entry(title));
 
 			Entry entry = manager.getEntry(id);
 			AssertAreEqual(entry.getTitle(), title);
@@ -34,8 +34,8 @@ namespace TimeSinceTest
 
 		TEST_METHOD(CreateAndGetMultipleEntries)
 		{
-			int id1 = entryManager.createEntry("Entry 1");
-			int id2 = entryManager.createEntry("Entry 2");
+			int id1 = entryManager.addEntry(Entry("Entry 1"));
+			int id2 = entryManager.addEntry(Entry("Entry 2"));
 
 			AssertAreEqual("Entry 1", entryManager.getEntry(id1).getTitle());
 			AssertAreEqual("Entry 2", entryManager.getEntry(id2).getTitle());
@@ -44,10 +44,10 @@ namespace TimeSinceTest
 
 		TEST_METHOD(CreateAndCountAndEraseEntry)
 		{
-			int id1 = entryManager.createEntry("Entry 1");
+			int id1 = entryManager.addEntry(Entry("Entry 1"));
 			Assert::AreEqual(1, entryManager.entryCount(), L"Wrong number of entries");
 
-			int id2 = entryManager.createEntry("Entry 2");
+			int id2 = entryManager.addEntry(Entry("Entry 2"));
 			Assert::AreEqual(2, entryManager.entryCount(), L"Wrong number of entries");
 
 			entryManager.erase(id1);
@@ -58,7 +58,7 @@ namespace TimeSinceTest
 		TEST_METHOD(EraseAndVerifyEntry)
 		{
 			const QString title1 = "Hello";
-			int id1 = entryManager.createEntry(title1);
+			int id1 = entryManager.addEntry(Entry(title1));
 
 			entryManager.erase(id1);
 
@@ -71,8 +71,8 @@ namespace TimeSinceTest
 
 		TEST_METHOD(EraseAndVerifyMultipleEntries1)
 		{
-			int id1 = entryManager.createEntry(title1);
-			int id2 = entryManager.createEntry(title2);
+			int id1 = entryManager.addEntry(Entry(title1));
+			int id2 = entryManager.addEntry(Entry(title2));
 
 			entryManager.erase(id1);
 			AssertAreEqual(title2, entryManager.getEntry(id2).getTitle());
@@ -81,8 +81,8 @@ namespace TimeSinceTest
 
 		TEST_METHOD(EraseAndVerifyMultipleEntries2)
 		{
-			int id1 = entryManager.createEntry(title1);
-			int id2 = entryManager.createEntry(title2);
+			int id1 = entryManager.addEntry(Entry(title1));
+			int id2 = entryManager.addEntry(Entry(title2));
 
 			entryManager.erase(id2);
 			AssertAreEqual(title1, entryManager.getEntry(id1).getTitle());

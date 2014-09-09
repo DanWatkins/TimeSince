@@ -10,12 +10,6 @@ int EntryManager::addEntry(const Entry &entry)
 }
 
 
-int EntryManager::createEntry(const QString &title)
-{
-	return addEntry(Entry(title));
-}
-
-
 void EntryManager::importEntries(QSharedPointer<QByteArray> entries)
 {
 	addEntry(Entry());

@@ -12,7 +12,6 @@ private:
 
 public:
 	int addEntry(const Entry &entry);
-	int createEntry(const QString &title);
 	Entry getEntry(int id) const;
 
 	QSharedPointer<QByteArray> exportEntries() { return QSharedPointer<QByteArray>(); }
