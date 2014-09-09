@@ -1,15 +1,25 @@
 #include "EntryManager.h"
 
 
-int EntryManager::createEntry(const QString &title)
+int EntryManager::addEntry(const Entry &entry)
 {
-	//put the new entry at a key equal to the highest key + 1
 	int id = mEntries.size();
-	mEntries[id] = Entry(title);
+	mEntries[id] = entry;
 
 	return id;
 }
 
+
+int EntryManager::createEntry(const QString &title)
+{
+	return addEntry(Entry(title));
+}
+
+
+void EntryManager::importEntries(QSharedPointer<QByteArray> entries)
+{
+	addEntry(Entry());
+}
 
 
 Entry EntryManager::getEntry(int id) const

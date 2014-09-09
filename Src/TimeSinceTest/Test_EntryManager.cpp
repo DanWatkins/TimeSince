@@ -87,5 +87,18 @@ namespace TimeSinceTest
 			entryManager.erase(id2);
 			AssertAreEqual(title1, entryManager.getEntry(id1).getTitle());
 		}
+
+
+		TEST_METHOD(EntryManagerExportImport)
+		{
+			Entry startEntry;
+			int id = entryManager.addEntry(startEntry);
+			QSharedPointer<QByteArray> byteArray = entryManager.exportEntries();
+
+			EntryManager otherManager;
+			otherManager.importEntries(byteArray);
+
+			Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+		}
 	};
 }

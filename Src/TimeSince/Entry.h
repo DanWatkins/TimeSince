@@ -42,6 +42,7 @@ public:
 	QString getPreText() const { return mPreText; }
 	QString getPostText() const { return mPostText; }
 
+	bool operator == (const Entry &rhs) { return true; }
 
 private:
 	QString mTitle;
