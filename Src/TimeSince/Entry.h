@@ -18,7 +18,6 @@ class Entry
 {
 public:
 	Entry() {}
-	Entry(const QString &title) { mTitle = title; }
 	Entry(const QDateTime &date, const QString &preText, const QString &postText);
 
 	QString buildBaseText(const QDateTime &compareDate) const;
@@ -37,7 +36,6 @@ public:
 		return hasTags(rest...);
 	}
 
-	QString getTitle() const { return mTitle; }
 	QDateTime getDate() const { return mDate; }
 	QString getPreText() const { return mPreText; }
 	QString getPostText() const { return mPostText; }
@@ -45,7 +43,6 @@ public:
 	bool operator == (const Entry &rhs) const;
 
 private:
-	QString mTitle;
 	QDateTime mDate;
 	QString mPreText, mPostText;
 	QMap<QString, bool> mTags;
