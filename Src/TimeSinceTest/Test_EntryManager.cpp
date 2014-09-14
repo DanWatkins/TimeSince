@@ -94,9 +94,24 @@ namespace TimeSinceTest
 		}
 
 
-		TEST_METHOD(EntryManagerExportImport)
+		TEST_METHOD(EntryManagerExportImportSingleEntry1)
 		{
 			Entry startEntry;
+			int id = entryManager.addEntry(startEntry);
+			QSharedPointer<QByteArray> byteArray = entryManager.exportEntries();
+
+			EntryManager otherManager;
+			otherManager.importEntries(byteArray);
+
+			Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+		}
+
+
+		TEST_METHOD(EntryManagerExportImportSingleEntry2)
+		{
+			Entry startEntry(QDateTime(QDate(1998, 12, 14), QTime(14, 20)), "a day in 1998", "a day in 1998");
+			startEntry.addTag("day");
+			startEntry.addTag("1998");
 			int id = entryManager.addEntry(startEntry);
 			QSharedPointer<QByteArray> byteArray = entryManager.exportEntries();
 

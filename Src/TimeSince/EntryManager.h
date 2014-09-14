@@ -8,15 +8,15 @@
 class EntryManager
 {
 private:
-	QMap<int, Entry> mEntries;
+	typedef QMap<int, Entry> EntryMap;
+	EntryMap mEntries;
 
 public:
 	int addEntry(const Entry &entry);
 	Entry getEntry(int id) const;
 
-	QSharedPointer<QByteArray> exportEntries() { return QSharedPointer<QByteArray>(); }
+	QSharedPointer<QByteArray> exportEntries() const;
 	void importEntries(QSharedPointer<QByteArray> entries);
-
 
 	int entryCount() const;
 	void erase(int id) { mEntries.erase(mEntries.find(id)); }

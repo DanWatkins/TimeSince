@@ -3,6 +3,7 @@
 
 #include <QtCore/QDateTime>
 #include <QtCore/QMap>
+#include <QtCore/QXmlStreamWriter>
 
 
 enum class TimeUnit
@@ -42,10 +43,15 @@ public:
 
 	bool operator == (const Entry &rhs) const;
 
+	void writeToXmlStream(QXmlStreamWriter &stream) const;
+	void readFromXmlStream(QXmlStreamReader &xml);
+
 private:
 	QDateTime mDate;
 	QString mPreText, mPostText;
-	QMap<QString, bool> mTags;
+
+	typedef QMap<QString, bool> TagsMap;
+	TagsMap mTags;
 
 	//This is only to break out of recursion for the variadic hasTags
 	bool hasTags() const { return true; }

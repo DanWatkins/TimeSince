@@ -213,10 +213,23 @@ namespace TimeSinceTest
 		}
 
 
-		TEST_METHOD(EntryCompareDifferentEntries)
+		TEST_METHOD(EntryCompareDifferentEntries1)
 		{
 			Entry e1(QDateTime(QDate(1066, 1, 1), QTime(0, 0)), "until 1066", "since 1066");
 			Entry e2(QDateTime(QDate(2004, 1, 1), QTime(0, 0)), "until 2004", "since 2004");
+
+			Assert::IsFalse(e1 == e2);
+		}
+
+
+		TEST_METHOD(EntryCompareDifferentEntries2)
+		{
+			Entry e1(QDateTime(QDate(1066, 1, 1), QTime(0, 0)), "until 1066", "since 1066");
+			e1.addTag("day");
+			e1.addTag("cool");
+
+			Entry e2(QDateTime(QDate(1066, 1, 1), QTime(0, 0)), "until 1066", "since 1066");
+			e2.addTag("speaker");
 
 			Assert::IsFalse(e1 == e2);
 		}
