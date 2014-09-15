@@ -1,6 +1,7 @@
 #include "Utility.h"
 #include <TimeSince\EntryManager.h>
 #include <fstream>
+#include <QtCore/QBuffer>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -97,13 +98,25 @@ namespace TimeSinceTest
 		TEST_METHOD(EntryManagerExportImportSingleEntry1)
 		{
 			Entry startEntry;
+			startEntry.addTag("bus");
 			int id = entryManager.addEntry(startEntry);
-			QSharedPointer<QByteArray> byteArray = entryManager.exportEntries();
 
-			EntryManager otherManager;
-			otherManager.importEntries(byteArray);
+			QByteArray byteArray;
 
-			Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::WriteOnly);
+				entryManager.exportEntries(buffer);
+			}
+
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::ReadOnly);
+				EntryManager otherManager;
+				otherManager.importEntries(buffer);
+
+				Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+			}
 		}
 
 
@@ -113,12 +126,23 @@ namespace TimeSinceTest
 			startEntry.addTag("day");
 			startEntry.addTag("1998");
 			int id = entryManager.addEntry(startEntry);
-			QSharedPointer<QByteArray> byteArray = entryManager.exportEntries();
 
-			EntryManager otherManager;
-			otherManager.importEntries(byteArray);
+			QByteArray byteArray;
 
-			Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::WriteOnly);
+				entryManager.exportEntries(buffer);
+			}
+
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::ReadOnly);
+				EntryManager otherManager;
+				otherManager.importEntries(buffer);
+
+				Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+			}
 		}
 	};
 }

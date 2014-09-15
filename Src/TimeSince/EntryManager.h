@@ -15,8 +15,9 @@ public:
 	int addEntry(const Entry &entry);
 	Entry getEntry(int id) const;
 
-	QSharedPointer<QByteArray> exportEntries() const;
-	void importEntries(QSharedPointer<QByteArray> entries);
+
+	void exportEntries(QIODevice &device) const;
+	void importEntries(QIODevice &entries);
 
 	int entryCount() const;
 	void erase(int id) { mEntries.erase(mEntries.find(id)); }

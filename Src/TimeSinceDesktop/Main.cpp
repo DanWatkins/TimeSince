@@ -1,5 +1,6 @@
 #include <iostream>
 #include <TimeSince/EntryManager.h>
+#include <QtCore/QFile>
 
 int main()
 {
@@ -10,13 +11,11 @@ int main()
 
 	m.addEntry(e1);
 
-	QSharedPointer<QByteArray> byteArray = m.exportEntries();
+	QFile file("exportedEntries.txt");
+	m.exportEntries(file);
 	
-	QString str(*byteArray.data());
-	std::cout << str.toStdString() << std::endl;
-
 	EntryManager b;
-	b.importEntries(byteArray);
+	b.importEntries(file);
 
 
 	return 0;

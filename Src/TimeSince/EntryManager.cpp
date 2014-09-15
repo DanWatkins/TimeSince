@@ -11,10 +11,9 @@ int EntryManager::addEntry(const Entry &entry)
 }
 
 
-QSharedPointer<QByteArray> EntryManager::exportEntries() const
+void EntryManager::exportEntries(QIODevice &device) const
 {
-	QSharedPointer<QByteArray> byteArray(new QByteArray());
-	QXmlStreamWriter w(byteArray.data());
+	QXmlStreamWriter w(&device);
 	w.setAutoFormatting(true);
 	w.writeStartDocument();
 
@@ -26,15 +25,12 @@ QSharedPointer<QByteArray> EntryManager::exportEntries() const
 	}
 
 	w.writeEndDocument();
-
-	return byteArray;
 }
 
 
-
-void EntryManager::importEntries(QSharedPointer<QByteArray> entries)
+void EntryManager::importEntries(QIODevice &entries)
 {
-	QXmlStreamReader xml(*entries.data());
+	QXmlStreamReader xml(&entries);
 
 	while (!xml.atEnd()  && !xml.hasError())
     {
@@ -57,6 +53,7 @@ void EntryManager::importEntries(QSharedPointer<QByteArray> entries)
 
 	if (xml.hasError())
 	{
+		QString str = xml.errorString();
 		std::cout << "Error: " << xml.errorString().toStdString() << std::endl;
 	}
 
