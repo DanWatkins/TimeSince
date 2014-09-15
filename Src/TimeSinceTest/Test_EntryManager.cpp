@@ -10,8 +10,10 @@ namespace TimeSinceTest
 	TEST_CLASS(Test_EntryManager)
 	{
 	private:
+		EntryManager entryManager;
+		const QString title1 = "Hello";
+		const QString title2 = "Bye";
 		const QDateTime defaultDate = QDateTime(QDate(2003, 5, 7), QTime(17, 35));
-
 
 		void assertCreateAndGetEntry(QString title)
 		{
@@ -22,9 +24,28 @@ namespace TimeSinceTest
 			Assert::IsTrue(manager.getEntry(id) == entry);
 		}
 
-		EntryManager entryManager;
-		const QString title1 = "Hello";
-		const QString title2 = "Bye";
+
+		void assertExportImportSingleEntry(const Entry &entry)
+		{
+			int id = entryManager.addEntry(entry);
+			QByteArray byteArray;
+
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::WriteOnly);
+				entryManager.exportEntries(buffer);
+			}
+
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::ReadOnly);
+				EntryManager otherManager;
+				otherManager.importEntries(buffer);
+
+				Assert::IsTrue(entry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+			}
+		}
+
 
 	public:
 		TEST_METHOD(CreateAndGetEntry)
@@ -99,24 +120,8 @@ namespace TimeSinceTest
 		{
 			Entry startEntry;
 			startEntry.addTag("bus");
-			int id = entryManager.addEntry(startEntry);
 
-			QByteArray byteArray;
-
-			{
-				QBuffer buffer(&byteArray);
-				buffer.open(QBuffer::WriteOnly);
-				entryManager.exportEntries(buffer);
-			}
-
-			{
-				QBuffer buffer(&byteArray);
-				buffer.open(QBuffer::ReadOnly);
-				EntryManager otherManager;
-				otherManager.importEntries(buffer);
-
-				Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
-			}
+			assertExportImportSingleEntry(startEntry);
 		}
 
 
@@ -125,24 +130,8 @@ namespace TimeSinceTest
 			Entry startEntry(QDateTime(QDate(1998, 12, 14), QTime(14, 20)), "a day in 1998", "a day in 1998");
 			startEntry.addTag("day");
 			startEntry.addTag("1998");
-			int id = entryManager.addEntry(startEntry);
 
-			QByteArray byteArray;
-
-			{
-				QBuffer buffer(&byteArray);
-				buffer.open(QBuffer::WriteOnly);
-				entryManager.exportEntries(buffer);
-			}
-
-			{
-				QBuffer buffer(&byteArray);
-				buffer.open(QBuffer::ReadOnly);
-				EntryManager otherManager;
-				otherManager.importEntries(buffer);
-
-				Assert::IsTrue(startEntry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
-			}
+			assertExportImportSingleEntry(startEntry);
 		}
 	};
 }
