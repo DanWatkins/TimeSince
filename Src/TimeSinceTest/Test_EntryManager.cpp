@@ -133,5 +133,40 @@ namespace TimeSinceTest
 
 			assertExportImportSingleEntry(startEntry);
 		}
+
+
+		TEST_METHOD(EntryManagerExportImportMultipleEntries)
+		{
+			Entry e1(QDateTime(QDate(1954, 11, 07), QTime(7, 55)), "a very cool day", "a very cool day");
+			e1.addTag("old");
+			e1.addTag("calculator");
+
+			Entry e2(QDateTime(QDate(2047, 01, 03), QTime(9, 45)), "a super cool day", "a super cool day");
+			e2.addTag("book");
+			e2.addTag("crysis3");
+			e2.addTag("gpu");
+			e2.addTag("opencl");
+
+			int id1 = entryManager.addEntry(e1);
+			int id2 = entryManager.addEntry(e2);
+
+			QByteArray byteArray;
+
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::WriteOnly);
+				entryManager.exportEntries(buffer);
+			}
+
+			{
+				QBuffer buffer(&byteArray);
+				buffer.open(QBuffer::ReadOnly);
+				EntryManager otherManager;
+				otherManager.importEntries(buffer);
+
+				Assert::IsTrue(e1 == otherManager.getEntry(id1), L"Imported entry does not match exported entry");
+				Assert::IsTrue(e2 == otherManager.getEntry(id2), L"Imported entry does not match exported entry");
+			}
+		}
 	};
 }

@@ -16,6 +16,7 @@ void EntryManager::exportEntries(QIODevice &device) const
 	QXmlStreamWriter w(&device);
 	w.setAutoFormatting(true);
 	w.writeStartDocument();
+	w.writeStartElement("entries");
 
 	EntryMap::ConstIterator iter = mEntries.constBegin();
 	while (iter != mEntries.constEnd())
@@ -24,6 +25,7 @@ void EntryManager::exportEntries(QIODevice &device) const
 		iter++;
 	}
 
+	w.writeEndElement();
 	w.writeEndDocument();
 }
 
