@@ -25,9 +25,8 @@ namespace TimeSinceTest
 		}
 
 
-		void assertExportImportSingleEntry(const Entry &entry)
+		EntryManager exportImportEntryManagerThroughBuffer(const EntryManager &entryManager)
 		{
-			int id = entryManager.addEntry(entry);
 			QByteArray byteArray;
 
 			{
@@ -42,8 +41,17 @@ namespace TimeSinceTest
 				EntryManager otherManager;
 				otherManager.importEntries(buffer);
 
-				Assert::IsTrue(entry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
+				return otherManager;
 			}
+		}
+
+
+		void assertExportImportSingleEntry(const Entry &entry)
+		{
+			int id = entryManager.addEntry(entry);
+			EntryManager otherManager = exportImportEntryManagerThroughBuffer(entryManager);
+
+			Assert::IsTrue(entry == otherManager.getEntry(id), L"Imported entry does not match exported entry");
 		}
 
 
@@ -150,23 +158,10 @@ namespace TimeSinceTest
 			int id1 = entryManager.addEntry(e1);
 			int id2 = entryManager.addEntry(e2);
 
-			QByteArray byteArray;
+			EntryManager otherManager = exportImportEntryManagerThroughBuffer(entryManager);
 
-			{
-				QBuffer buffer(&byteArray);
-				buffer.open(QBuffer::WriteOnly);
-				entryManager.exportEntries(buffer);
-			}
-
-			{
-				QBuffer buffer(&byteArray);
-				buffer.open(QBuffer::ReadOnly);
-				EntryManager otherManager;
-				otherManager.importEntries(buffer);
-
-				Assert::IsTrue(e1 == otherManager.getEntry(id1), L"Imported entry does not match exported entry");
-				Assert::IsTrue(e2 == otherManager.getEntry(id2), L"Imported entry does not match exported entry");
-			}
+			Assert::IsTrue(e1 == otherManager.getEntry(id1), L"Imported entry does not match exported entry");
+			Assert::IsTrue(e2 == otherManager.getEntry(id2), L"Imported entry does not match exported entry");
 		}
 	};
 }
