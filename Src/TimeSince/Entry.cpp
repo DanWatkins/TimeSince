@@ -1,5 +1,5 @@
 #include "Entry.h"
-
+#include <iostream>
 
 Entry::Entry(const QDateTime &date, const QString &preText, const QString &postText)
 {
@@ -61,4 +61,64 @@ QString Entry::buildTimeText(const QDateTime &compareDate, TimeUnit timeUnit) co
 QString Entry::buildFullText(const QDateTime &compareDate, TimeUnit timeUnit) const
 {
 	return buildTimeText(compareDate, timeUnit) + " " + buildBaseText(compareDate);
+}
+
+
+//TODO are thre enough tests for this method?
+bool Entry::operator == (const Entry &rhs) const
+{
+	return mDate == rhs.mDate &&
+			mPreText == rhs.mPreText &&
+			mPostText == rhs.mPostText &&
+			mTags == rhs.mTags;
+}
+
+
+void Entry::writeToXmlStream(QXmlStreamWriter &stream) const
+{
+	stream.writeStartElement("entry");
+	{
+		stream.writeAttribute("date", mDate.toString());
+		stream.writeAttribute("preText", mPreText);
+		stream.writeAttribute("postText", mPostText);
+
+		TagsMap::ConstIterator iter = mTags.constBegin();
+		while (iter != mTags.constEnd())
+		{
+			if (iter.value() == true)
+				stream.writeTextElement("tag", iter.key());
+
+			iter++;
+		}
+	}
+	stream.writeEndElement();
+}
+
+
+void Entry::readFromXmlStream(QXmlStreamReader &xml)
+{
+	QXmlStreamAttributes attributes = xml.attributes();
+
+	if (attributes.hasAttribute("date"))
+		mDate = QDateTime::fromString(attributes.value("date").toString());
+	
+	if (attributes.hasAttribute("preText"))
+		mPreText = attributes.value("preText").toString();
+
+	if (attributes.hasAttribute("postText"))
+		mPostText = attributes.value("postText").toString();
+
+	while (xml.tokenType() != QXmlStreamReader::EndElement || xml.name() == "tag")
+	{
+		if (xml.tokenType() == QXmlStreamReader::StartElement)
+		{
+			if (xml.name() == "tag")
+			{
+				xml.readNext();
+				addTag(xml.text().toString());
+			}
+		}
+
+		xml.readNext();
+	}
 }

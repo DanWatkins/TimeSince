@@ -1,15 +1,66 @@
 #include "EntryManager.h"
+#include <QtCore/QXMLStreamWriter>
+#include <iostream>
 
-
-int EntryManager::createEntry(const QString &title)
+int EntryManager::addEntry(const Entry &entry)
 {
-	//put the new entry at a key equal to the highest key + 1
 	int id = mEntries.size();
-	mEntries[id] = Entry(title);
+	mEntries[id] = entry;
 
 	return id;
 }
 
+
+void EntryManager::exportEntries(QIODevice &device) const
+{
+	QXmlStreamWriter w(&device);
+	w.setAutoFormatting(true);
+	w.writeStartDocument();
+	w.writeStartElement("entries");
+
+	EntryMap::ConstIterator iter = mEntries.constBegin();
+	while (iter != mEntries.constEnd())
+	{
+		iter->writeToXmlStream(w);
+		iter++;
+	}
+
+	w.writeEndElement();
+	w.writeEndDocument();
+}
+
+
+void EntryManager::importEntries(QIODevice &entries)
+{
+	QXmlStreamReader xml(&entries);
+
+	while (!xml.atEnd()  && !xml.hasError())
+    {
+		QXmlStreamReader::TokenType type = xml.readNext();
+
+		if (type == QXmlStreamReader::StartDocument)
+		{
+			continue;
+		}
+		else if (type == QXmlStreamReader::StartElement)
+		{
+			if (xml.name() == "entry")
+			{
+				Entry newEntry;
+				newEntry.readFromXmlStream(xml);
+				addEntry(newEntry); 
+			}
+		}
+    }
+
+	if (xml.hasError())
+	{
+		QString str = xml.errorString();
+		std::cout << "Error: " << xml.errorString().toStdString() << std::endl;
+	}
+
+	xml.clear();
+}
 
 
 Entry EntryManager::getEntry(int id) const

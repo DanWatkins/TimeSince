@@ -3,15 +3,21 @@
 
 #include "Entry.h"
 #include <QtCore/QMap>
+#include <QtCore/QByteArray>
 
 class EntryManager
 {
 private:
-	QMap<int, Entry> mEntries;
+	typedef QMap<int, Entry> EntryMap;
+	EntryMap mEntries;
 
 public:
-	int createEntry(const QString &title);
+	int addEntry(const Entry &entry);
 	Entry getEntry(int id) const;
+
+
+	void exportEntries(QIODevice &device) const;
+	void importEntries(QIODevice &entries);
 
 	int entryCount() const;
 	void erase(int id) { mEntries.erase(mEntries.find(id)); }
